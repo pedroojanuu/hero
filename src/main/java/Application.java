@@ -9,30 +9,21 @@ import java.io.IOException;
 
 public class Application {
     public static void main(String[] args) {
-        Terminal terminal = new DefaultTerminalFactory().createTerminal();
-        Screen screen = new TerminalScreen(terminal);
-
-        screen.setCursorPosition(null);
-        screen.startScreen();
-        screen.doResizeIfNecessary();
-
         try {
-            Terminal terminal = new DefaultTerminalFactory().createTerminal();
-            Screen screen = new TerminalScreen(terminal);
+            TerminalSize terminalSize = new TerminalSize(40, 20);
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+            Terminal terminal = terminalFactory.createTerminal();            Screen screen = new TerminalScreen(terminal);
 
             screen.setCursorPosition(null);
             screen.startScreen();
             screen.doResizeIfNecessary();
+
+            screen.clear();
+            screen.setCharacter(10, 10, TextCharacter.fromCharacter('X') [0]);
+            screen.setCharacter(11, 10, TextCharacter.fromCharacter('Y') [0]);
+            screen.refresh();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        TerminalSize terminalSize = new TerminalSize(40, 20);
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
-        Terminal terminal = terminalFactory.createTerminal();
-
-        screen.clear();
-        screen.setCharacter(10, 10, TextCharacter.fromCharacter('X') [0]);
-        screen.refresh();
     }
 }
