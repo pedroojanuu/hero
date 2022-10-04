@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class Game {
     private Screen screen;
-    private Hero hero = new Hero(10,10);
+    private Arena arena = new Arena(40, 20);
     public Game() {
         try {
             TerminalSize terminalSize = new TerminalSize(40, 20);
@@ -27,11 +27,8 @@ public class Game {
     }
     private void draw() throws IOException {
         screen.clear();
-        hero.draw(screen);
+        arena.draw(screen);
         screen.refresh();
-    }
-    private void moveHero(Position position) {
-        hero.setPosition(position);
     }
     public void run() throws IOException {
         while (true) {
@@ -46,11 +43,6 @@ public class Game {
         }
     }
     private void processKey(KeyStroke key) {
-        switch (key.getKeyType()) {
-            case ArrowUp: moveHero(hero.moveUp()); break;
-            case ArrowRight: moveHero(hero.moveRight()); break;
-            case ArrowDown: moveHero(hero.moveDown()); break;
-            case ArrowLeft: moveHero(hero.moveLeft()); break;
-        }
+        arena.processKey(key);
     }
 }
