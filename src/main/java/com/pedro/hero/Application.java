@@ -1,3 +1,5 @@
+package com.pedro.hero;
+
 import java.io.IOException;
 
 public class Application {
