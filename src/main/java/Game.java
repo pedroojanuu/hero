@@ -1,7 +1,4 @@
-package com.pedro.hero;
-
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -13,8 +10,7 @@ import java.io.IOException;
 
 public class Game {
     private Screen screen;
-    private int x = 10;
-    private int y = 10;
+    private Hero hero = new Hero(10,10);
     public Game() {
         try {
             TerminalSize terminalSize = new TerminalSize(40, 20);
@@ -31,7 +27,7 @@ public class Game {
     }
     private void draw() throws IOException {
         screen.clear();
-        screen.setCharacter(x, y, TextCharacter.fromCharacter('X') [0]);
+        hero.draw(screen);
         screen.refresh();
     }
     public void run() throws IOException {
@@ -48,10 +44,10 @@ public class Game {
     }
     private void processKey(KeyStroke key) {
         switch (key.getKeyType()) {
-            case ArrowUp: y--; break;
-            case ArrowRight: x++; break;
-            case ArrowDown: y++; break;
-            case ArrowLeft: x--; break;
+            case ArrowUp: hero.moveUp(); break;
+            case ArrowRight: hero.moveRight(); break;
+            case ArrowDown: hero.moveDown(); break;
+            case ArrowLeft: hero.moveLeft(); break;
         }
     }
 }
