@@ -14,12 +14,14 @@ public class Arena {
     private Hero hero;
     private List<Wall> walls;
     private List<Coin> coins;
+    private List<Monster> monsters;
     public Arena(int width, int height) {
         this.width = width;
         this.height = height;
         hero = new Hero(10, 10);
         this.walls = createWalls();
         this.coins = createCoins();
+        this.monsters = createMonsters();
     }
 
     private List<Wall> createWalls() {
@@ -44,6 +46,15 @@ public class Arena {
         return coins;
     }
 
+    private List<Monster> createMonsters() {
+        Random random = new Random();
+        ArrayList<Monster> monsters = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            monsters.add(new Monster(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
+        }
+        return monsters;
+    }
+
     public int getWidth() {return width;}
 
     public int getHeight() {return height;}
@@ -54,10 +65,22 @@ public class Arena {
         return true;
     }
 
+    private boolean canMonsterMove(Position position) {
+        return canHeroMove(position);
+    }
+
     private void moveHero(Position position) {
         if (canHeroMove(position)) {
             hero.setPosition(position);
             retrieveCoins();
+        }
+    }
+
+    private void moveMonsters() {
+        for (Monster monster : monsters) {
+            Position position = monster.move();
+            if (canMonsterMove(position))
+                monster.setPosition(position);
         }
     }
 
@@ -77,10 +100,13 @@ public class Arena {
             wall.draw(graphics);
         for (Coin coin : coins)
             coin.draw(graphics);
+        for (Monster monster : monsters)
+            monster.draw(graphics);
         hero.draw(graphics);
     }
 
     public void processKey(KeyStroke key) {
+        moveMonsters();
         switch (key.getKeyType()) {
             case ArrowUp: moveHero(hero.moveUp()); break;
             case ArrowRight: moveHero(hero.moveRight()); break;
