@@ -26,6 +26,7 @@ public class Position {
     public void setY(int y) {
         this.y = y;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

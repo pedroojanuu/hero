@@ -22,11 +22,13 @@ public class Game {
         screen.doResizeIfNecessary();
         arena = new Arena(width, height);
     }
+
     private void draw() throws IOException {
         screen.clear();
         arena.draw(screen.newTextGraphics());
         screen.refresh();
     }
+
     public void run() throws IOException {
         while (true) {
             draw();
@@ -39,6 +41,7 @@ public class Game {
             processKey(key);
         }
     }
+
     private void processKey(KeyStroke key) {
         arena.processKey(key);
     }

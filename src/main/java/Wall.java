@@ -4,20 +4,23 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import org.w3c.dom.Text;
 
-public class Wall {
-    private Position position;
+public class Wall extends Element {
     public Wall(int x, int y) {
-        position = new Position(x, y);
+        super(x, y);
     }
+
     public Position getPosition() {
         return position;
     }
+
     public void setX(int x) {
         position.setX(x);
     }
+
     public void setY(int y) {
         position.setY(y);
     }
+
     public void draw(TextGraphics graphics) {
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
         graphics.enableModifiers(SGR.BOLD);

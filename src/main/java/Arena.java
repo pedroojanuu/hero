@@ -17,6 +17,7 @@ public class Arena {
         hero = new Hero(10, 10);
         this.walls = createWalls();
     }
+
     private List<Wall> createWalls() {
         List<Wall> walls = new ArrayList<>();
         for (int c = 0; c < width; c++) {
@@ -29,17 +30,22 @@ public class Arena {
         }
         return walls;
     }
+
     public int getWidth() {return width;}
+
     public int getHeight() {return height;}
+
     private boolean canHeroMove(Position position) {
         for (Wall wall : walls)
             if (wall.getPosition().equals(position)) return false;
         return true;
     }
+
     private void moveHero(Position position) {
         if (canHeroMove(position))
             hero.setPosition(position);
     }
+
     public void draw(TextGraphics graphics) {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
@@ -47,6 +53,7 @@ public class Arena {
             wall.draw(graphics);
         hero.draw(graphics);
     }
+
     public void processKey(KeyStroke key) {
         switch (key.getKeyType()) {
             case ArrowUp: moveHero(hero.moveUp()); break;
