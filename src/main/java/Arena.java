@@ -69,6 +69,16 @@ public class Arena {
         return canHeroMove(position);
     }
 
+    public boolean verifyMonsterCollisions() {
+        for (Monster monster : monsters) {
+            if (monster.getPosition().equals(hero.getPosition())) {
+                System.out.println("Game over.");
+                System.exit(0);
+            }
+        }
+        return false;
+    }
+
     private void moveHero(Position position) {
         if (canHeroMove(position)) {
             hero.setPosition(position);
@@ -91,6 +101,10 @@ public class Arena {
                 break;
             }
         }
+        if (coins.size() == 0) {
+            System.out.println("You win!");
+            System.exit(0);
+        }
     }
 
     public void draw(TextGraphics graphics) {
@@ -106,7 +120,9 @@ public class Arena {
     }
 
     public void processKey(KeyStroke key) {
+        verifyMonsterCollisions();
         moveMonsters();
+        verifyMonsterCollisions();
         switch (key.getKeyType()) {
             case ArrowUp: moveHero(hero.moveUp()); break;
             case ArrowRight: moveHero(hero.moveRight()); break;

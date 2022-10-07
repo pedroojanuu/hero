@@ -31,8 +31,16 @@ public class Game {
 
     public void run() throws IOException {
         while (true) {
+            if (arena.verifyMonsterCollisions()) {
+                screen.close();
+                System.out.println("Game Over!");
+            }
             draw();
             KeyStroke key = screen.readInput();
+            if (arena.verifyMonsterCollisions()) {
+                screen.close();
+                System.out.println("Game Over!");
+            }
             if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') {
                 screen.close();
             } else if (key.getKeyType() == KeyType.EOF) {
